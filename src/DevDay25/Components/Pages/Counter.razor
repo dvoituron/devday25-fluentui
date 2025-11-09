@@ -1,0 +1,28 @@
+@page "/counter"
+@inject IDialogService DialogService
+
+@* Apply an "interactive" render mode, or set the render mode globally for all routes *@
+@rendermode InteractiveServer
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentButton Appearance="ButtonAppearance.Primary" OnClick="@IncrementCountAsync">
+        Click me
+    </FluentButton>
+    <FluentLabel Margin="@Margin.Vertical4">
+        Current count: @currentCount
+    </FluentLabel>
+</FluentStack>
+
+@code {
+    private int currentCount = 0;
+
+    private async Task IncrementCountAsync()
+    {
+        currentCount++;
+        await DialogService.ShowInfoAsync("Counter Incremented");
+    }
+}
