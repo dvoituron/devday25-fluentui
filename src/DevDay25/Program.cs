@@ -8,7 +8,12 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 // Register Fluent UI services
-builder.Services.AddFluentUIComponents();
+builder.Services.AddFluentUIComponents(config =>
+{
+    // Set default values for FluentButton component
+    config.DefaultValues.For<FluentButton>().Set(p => p.Appearance, ButtonAppearance.Primary);
+    config.DefaultValues.For<FluentButton>().Set(p => p.Shape, ButtonShape.Circular);
+});
 
 var app = builder.Build();
 
