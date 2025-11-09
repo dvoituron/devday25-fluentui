@@ -1,3 +1,8 @@
+:root {
+    --colorBrandBackground: #c1272d;
+    --colorBrandBackgroundHover: #933748;
+}
+
 h1:focus {
     outline: none;
 }
