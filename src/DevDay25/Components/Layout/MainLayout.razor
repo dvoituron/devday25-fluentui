@@ -1,6 +1,33 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+<FluentLayout>
+    @* Header *@
+    <FluentLayoutItem Area="LayoutArea.Header">
+
+        <FluentLayoutHamburger PanelSize="DialogSize.Small" />
+
+        <b>DevDay 2025</b> - Fluent UI Blazor
+    </FluentLayoutItem>
+
+    @* Menu *@
+    <FluentLayoutItem Area="LayoutArea.Menu" Padding="16px" Width="200px">
+        <FluentStack Orientation="Orientation.Vertical">
+            <a href="">Home</a>
+            <a href="about">About</a>
+        </FluentStack>
+    </FluentLayoutItem>
+
+    @* Content *@
+    <FluentLayoutItem Area="LayoutArea.Content" Padding="16px">
+        @Body
+    </FluentLayoutItem>
+
+    @* Footer *@
+    <FluentLayoutItem Area="LayoutArea.Footer">
+        Powered by Fluent UI Blazor
+    </FluentLayoutItem>
+
+</FluentLayout>
 
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.
