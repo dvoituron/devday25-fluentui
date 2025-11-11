@@ -1,0 +1,38 @@
+@page "/weather"
+@inject HttpClient Http
+
+@if (Forecasts == null)
+{
+    <p><em>Loading...</em></p>
+    return;
+}
+else
+{
+
+    <FluentTextInput Placeholder="Filtrer" @bind-Value="@SearchText" ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])">
+        <StartTemplate>
+            <FluentIcon Value="@(new Icons.Regular.Size16.Search())" Color="Color.Primary" />
+        </StartTemplate>
+    </FluentTextInput>
+
+    <FluentDataGrid Items="@Forecasts?.Where(f => f.Summary.Contains(SearchText)).AsQueryable()" ShowHover="true"
+        Style="max-width: 500px;">
+        <PropertyColumn Property="@(p => p.Date)" Format="dd MMMM" />
+        <PropertyColumn Property="@(p => p.TemperatureC)" Title="Temperature" Sortable="true" />
+        <PropertyColumn Property="@(p => p.Summary)" Title="Résumé" />
+    </FluentDataGrid>
+}
+
+@code
+{
+    private WeatherForecast[]? Forecasts;
+    private string SearchText = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        const string url = "https://dvoituron.com/assets/weather.json";
+        Forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>(url);
+    }
+
+    private record WeatherForecast(DateOnly Date, int TemperatureC, string Summary);
+}
